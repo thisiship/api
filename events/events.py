@@ -35,13 +35,13 @@ def all_events_list():
     return jsonify(events_list)
 
 
-@events_bp.route('/<event_id>')    
+@events_bp.route('/<int:event_id>')    
 def event_details(event_id):
     """ Get the details of a single event\n
         Parameters:\n
         <event_id> - the id of the event
     """
-    requested_event = list(filter(lambda ev: ev['id'] == int(event_id), events_list))
+    requested_event = list(filter(lambda ev: ev['id'] == event_id, events_list))
     if not requested_event or len(requested_event) <= 0:
         return jsonify(message=f'Event with id {event_id} not found.'), 404
     return jsonify(event=requested_event[0])
